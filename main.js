@@ -13,7 +13,7 @@ calcBody.addEventListener(`click`, (event) =>{
     if (!isButton) {
         return;
     }
-    displayValue += `${event.target.innerHTML} `;
+    displayValue += `${event.target.innerHTML}`;
     document.getElementById(`display-bottom`).innerHTML= displayValue;
     
     console.log(event.target.id);
