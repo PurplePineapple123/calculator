@@ -2,7 +2,7 @@
 let displayValue =``; 
 let firstNum = ``;
 let secondNum = ``;
-let operatorValue = ``;
+let operatorValue = [];
 
 const numValues = /^\d+$/;
 
@@ -19,52 +19,62 @@ calcBody.addEventListener(`click`, (event) =>{
         return;
     }
 
-
-
-    // if (event.target.id === /[0-9]/g) {
-    //     console.log(event.target.id);
-
-    // }
-
-
-    //WATCH OUT FOR STRINGS VS INTS
-    //Figure out way to check "if number 0-9"
-    //Figure out how to set operator value back to `` without messing with first If statement
-
-    //if (event.target.id === `9` && operatorValue === ``) {
-       
-    if (numValues.test(event.target.id) && operatorValue === ``) {
+       console.log(operatorValue);
+    if (numValues.test(event.target.value) && operatorValue.length === 0) {
         firstNum += event.target.value;
-       
+        
+        displayValue = firstNum;
+        document.getElementById(`display-bottom`).innerHTML = displayValue;
 
-        console.log(typeof(firstNum));
+        console.log((firstNum));
     }
 
 
 
-    if (event.target.id === `add`) {
-        operatorValue = `+`;
-        console.log(typeof(operatorValue));
+    if (!numValues.test(event.target.value) && (event.target.value !== `=`)) {
+        
+        operatorValue.push(event.target.value);
+        console.log((operatorValue));
 
     }    
 
-    if (numValues.test(event.target.id) && operatorValue !== ``) {
-        secondNum += event.target.value
-        console.log(typeof(secondNum));
+    if (numValues.test(event.target.value) && operatorValue.length !== 0) {
+        secondNum += event.target.value;
+
+        displayValue = secondNum;
+        document.getElementById(`display-bottom`).innerHTML = displayValue;
+        console.log((`2nd: ${secondNum}`));
     }
 
 
+    //PROBLEM: When chaining operations together, only the new operator value is passed. Need to store old value and pass that.(line 68)
 
-    if (firstNum !== `` && secondNum !== `` && operatorValue !== `` && event.target.id === `add`) {
-        document.getElementById(`display-bottom`).innerHTML= operate(parseInt(firstNum), parseInt(secondNum), operatorValue);
-        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue).toString();
-        console.log(typeof(firstNum));
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value))) {
+       if (event.target.value === `=`){
+
+        document.getElementById(`display-bottom`).innerHTML= operate(parseInt(firstNum), parseInt(secondNum), operatorValue[operatorValue.length-1]);
+        
+        console.log(operatorValue[operatorValue.length-1]);
+        
+        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue[operatorValue.length-1]).toString();
+        console.log((firstNum));
         secondNum = ``;
+
+       } else {
+
+        document.getElementById(`display-bottom`).innerHTML= operate(parseInt(firstNum), parseInt(secondNum), operatorValue[operatorValue.length-2]);
+        
+        console.log(operatorValue[operatorValue.length-1]);
+        
+        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue[operatorValue.length-2]).toString();
+        console.log((firstNum));
+        secondNum = ``;
+
+       }
+        
     }
 
 
-    // document.getElementById(`display-bottom`).innerHTML= firstNum;
-    // firstNum += event.target.value;
 
 
 
@@ -96,6 +106,9 @@ function divide(divideFirst, divideSecond) {
     return divideFirst / divideSecond;
 } 
 
+function exponent(expFirst, expSecond) {
+    return Math.pow(expFirst, expSecond);
+} 
 
 
 function operate(firstNumber, secondNumber, operator) {
@@ -117,6 +130,9 @@ function operate(firstNumber, secondNumber, operator) {
     }
 
 
+    if (operator === `^`) {
+        return exponent(firstNumber, secondNumber);
+    }
 }
 
 console.log(operate(3, 8, `/`));
