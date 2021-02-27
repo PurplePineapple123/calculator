@@ -1,5 +1,10 @@
 
 let displayValue =``; 
+let firstNum = ``;
+let secondNum = ``;
+let operatorValue = ``;
+
+
 
 
 
@@ -13,10 +18,52 @@ calcBody.addEventListener(`click`, (event) =>{
     if (!isButton) {
         return;
     }
-    displayValue += `${event.target.innerHTML}`;
-    document.getElementById(`display-bottom`).innerHTML= displayValue;
+
+
+
+    // if (event.target.id === /[0-9]/g) {
+    //     console.log(event.target.id);
+
+    // }
+
+
+
+
+    if (event.target.value === `9` && operatorValue === ``) {
+        firstNum += event.target.value;
+        console.log(firstNum);
+    }
+
+    if (event.target.value === `2` && operatorValue !== ``) {
+        secondNum += event.target.value
+        console.log(typeof(secondNum));
+    }
+
+
+
+
+    if (event.target.id === `add`) {
+        operatorValue = `+`;
+    }    
+
+
+
     
-    console.log(event.target.id);
+
+    if (firstNum !== `` && secondNum !== `` && operatorValue !== ``) {
+        document.getElementById(`display-bottom`).innerHTML= operate(parseInt(firstNum), parseInt(secondNum), operatorValue);
+        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue);
+        secondNum = ``;
+    }
+
+
+    // document.getElementById(`display-bottom`).innerHTML= firstNum;
+    // firstNum += event.target.value;
+
+
+
+
+
 
 });
 
@@ -50,6 +97,7 @@ function operate(firstNumber, secondNumber, operator) {
         return add(firstNumber, secondNumber);
     }
 
+    //check to see if spaces have any affect when comparing
     if (operator === `-`) {
         return subtract(firstNumber, secondNumber);
     }
@@ -69,94 +117,5 @@ console.log(operate(3, 8, `/`));
 
 
 
-
-
-// document.getElementById(`clear-all`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`clear-current`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`percent`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`plus-minus`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`exponent`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`divide`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`1`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`2`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`3`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`4`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`5`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`6`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`7`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`8`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`9`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`remove`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`multiply`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`subtract`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`add`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`zero`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`dot`). addEventListener(`click`, function() {
-
-// });
-
-// document.getElementById(`equal`). addEventListener(`click`, function() {
-
-// });
 
 
