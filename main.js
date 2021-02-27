@@ -4,7 +4,7 @@ let firstNum = ``;
 let secondNum = ``;
 let operatorValue = ``;
 
-
+const numValues = /^\d+$/;
 
 
 
@@ -27,32 +27,38 @@ calcBody.addEventListener(`click`, (event) =>{
     // }
 
 
+    //WATCH OUT FOR STRINGS VS INTS
+    //Figure out way to check "if number 0-9"
+    //Figure out how to set operator value back to `` without messing with first If statement
 
-
-    if (event.target.value === `9` && operatorValue === ``) {
+    //if (event.target.id === `9` && operatorValue === ``) {
+       
+    if (numValues.test(event.target.id) && operatorValue === ``) {
         firstNum += event.target.value;
-        console.log(firstNum);
+       
+
+        console.log(typeof(firstNum));
     }
 
-    if (event.target.value === `2` && operatorValue !== ``) {
+
+
+    if (event.target.id === `add`) {
+        operatorValue = `+`;
+        console.log(typeof(operatorValue));
+
+    }    
+
+    if (numValues.test(event.target.id) && operatorValue !== ``) {
         secondNum += event.target.value
         console.log(typeof(secondNum));
     }
 
 
 
-
-    if (event.target.id === `add`) {
-        operatorValue = `+`;
-    }    
-
-
-
-    
-
-    if (firstNum !== `` && secondNum !== `` && operatorValue !== ``) {
+    if (firstNum !== `` && secondNum !== `` && operatorValue !== `` && event.target.id === `add`) {
         document.getElementById(`display-bottom`).innerHTML= operate(parseInt(firstNum), parseInt(secondNum), operatorValue);
-        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue);
+        firstNum = operate(parseInt(firstNum), parseInt(secondNum), operatorValue).toString();
+        console.log(typeof(firstNum));
         secondNum = ``;
     }
 
