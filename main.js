@@ -20,13 +20,34 @@ calcBody.addEventListener(`click`, (event) => {
 
     // assign the first value 
     if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0) {
-        firstNum += event.target.value;
+        if (event.target.value === `.` && firstNum.includes(`.`)) {
+            return;
+        } else {
 
-        displayValue = firstNum;
-        document.getElementById(`display-bottom`).innerHTML = displayValue;
+            firstNum += event.target.value;
+            displayValue = firstNum;
+            document.getElementById(`display-bottom`).innerHTML = displayValue;
 
-        console.log((firstNum));
+            console.log((firstNum));
+        }
     }
+
+
+    // 2nd value
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0) {
+
+        if (event.target.value === `.` && secondNum.includes(`.`)) {
+            return;
+        } else {
+            secondNum += event.target.value;
+
+            displayValue = secondNum;
+            document.getElementById(`display-bottom`).innerHTML = displayValue;
+            console.log((`2nd: ${secondNum}`));
+        }
+    }
+
+
 
 
     // assign the operator
@@ -37,14 +58,6 @@ calcBody.addEventListener(`click`, (event) => {
 
     }
 
-    // 2nd value
-    if ((numValues.test(event.target.value) || event.target.value === `.`)  && operatorValue.length !== 0) {
-        secondNum += event.target.value;
-
-        displayValue = secondNum;
-        document.getElementById(`display-bottom`).innerHTML = displayValue;
-        console.log((`2nd: ${secondNum}`));
-    }
 
     // removes one character on given string 
     if (event.target.value === `back`) {
@@ -82,6 +95,8 @@ calcBody.addEventListener(`click`, (event) => {
     }
 
 
+
+
     // clear all 
     if (event.target.value === `c`) {
         document.getElementById(`display-bottom`).innerHTML = ``;
@@ -92,29 +107,20 @@ calcBody.addEventListener(`click`, (event) => {
     }
 
 
-    //PROBLEM: When chaining operations together, only the new operator value is passed. Need to store old value and pass that.(line 68)
 
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-`) {
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-` && event.target.value !== `.`) {
 
         if (event.target.value === `=`) {
-
-
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
-
-            // console.log(operatorValue[operatorValue.length-1]);
+        
 
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
-            //console.log((firstNum));
             secondNum = ``;
 
         } else {
 
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]);
-
-            // console.log(operatorValue[operatorValue.length-1]);
-
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]).toString();
-            //console.log((firstNum));
             secondNum = ``;
 
         }
@@ -152,27 +158,27 @@ function exponent(expFirst, expSecond) {
 
 
 function operate(firstNumber, secondNumber, operator) {
+    
     if (operator === `+`) {
+
         return add(firstNumber, secondNumber);
-    }
 
-    //check to see if spaces have any affect when comparing
-    if (operator === `-`) {
+    } else if (operator === `-`) {
+
         return subtract(firstNumber, secondNumber);
-    }
 
-    if (operator === `*`) {
+    } else if (operator === `*`) {
+
         return multiply(firstNumber, secondNumber);
-    }
 
-    if (operator === `/`) {
+    } else if (operator === `/`) {
 
         return divide(firstNumber, secondNumber);
-    }
 
+    } else if (operator === `^`) {
 
-    if (operator === `^`) {
         return exponent(firstNumber, secondNumber);
+
     }
 }
 
