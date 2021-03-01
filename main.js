@@ -132,28 +132,35 @@ calcBody.addEventListener(`click`, (event) => {
 
 
 function add(addFirst, addSecond) {
-    return addFirst + addSecond;
+    let total = addFirst + addSecond;
+   return Math.round((total + Number.EPSILON) * 1000) / 1000;
+     
 }
 
 
 function subtract(subtractFirst, subtractSecond) {
-    return subtractFirst - subtractSecond;
+    let total = subtractFirst - subtractSecond;
+    return Math.round((total + Number.EPSILON)  * 1000) / 1000;
+
 }
-
-
 
 function multiply(multiplyFirst, multiplySecond) {
-    return multiplyFirst * multiplySecond;
+    let total = multiplyFirst * multiplySecond;
+    return Math.round((total + Number.EPSILON)  * 1000) / 1000;
+
 }
 
-
-
 function divide(divideFirst, divideSecond) {
-    return divideFirst / divideSecond;
+    let total = divideFirst / divideSecond;
+    console.log(total);
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
+
 }
 
 function exponent(expFirst, expSecond) {
-    return Math.pow(expFirst, expSecond);
+    let total = Math.pow(expFirst, expSecond);
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
+
 }
 
 
