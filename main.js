@@ -95,8 +95,6 @@ calcBody.addEventListener(`click`, (event) => {
     }
 
 
-
-
     // clear all 
     if (event.target.value === `c`) {
         document.getElementById(`display-bottom`).innerHTML = ``;
@@ -163,6 +161,11 @@ function exponent(expFirst, expSecond) {
 
 }
 
+function percent(percentFirst, percentSecond) {
+    let total = (percentFirst * percentSecond) / 100;
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
+}
+
 
 function operate(firstNumber, secondNumber, operator) {
     
@@ -186,7 +189,10 @@ function operate(firstNumber, secondNumber, operator) {
 
         return exponent(firstNumber, secondNumber);
 
+    } else if (operator === `%`) {
+        return percent(firstNumber, secondNumber);
     }
+
 }
 
 
