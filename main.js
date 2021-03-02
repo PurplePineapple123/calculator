@@ -5,35 +5,58 @@ let secondNum = ``;
 let operatorValue = [];
 
 const numValues = /^\d+$/;
+const oV = /^[-+*/]+$/;
 
+
+const knownOperators = [`+`, `-`, `*`, `/`];
 
 const calcBody = document.getElementById(`calculator-body`);
 
-calcBody.addEventListener(`click`, (event) => {
-    const isButton = event.target.nodeName === `BUTTON`;
-    if (!isButton) {
+
+
+
+
+let performCalculation = function (event) {    
+    // const isButton = event.target.nodeName === `BUTTON`;
+    // if (!isButton) {
+    //     return;
+    // }
+
+   
+    console.log(event.target.value);
+
+    if ((event.target.value === `/` || event.target.value === `+` || event.target.value === `*` || event.target.value === `-` || event.target.value === `^`) && firstNum === ``) {
         return;
     }
-
-    console.log(operatorValue);
 
 
     // assign the first value 
     if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0) {
-        if (event.target.value === `.` && firstNum.includes(`.`)) {
+        if ((event.target.value === `.`) && firstNum.includes(`.`)) {
             return;
         } else {
 
-            firstNum += event.target.value;
+            firstNum += (event.target.value);
             displayValue = firstNum;
             document.getElementById(`display-bottom`).innerHTML = displayValue;
 
             console.log((firstNum));
         }
+    } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length === 0) {
+        if ((event.keyCode === `110`) && firstNum.includes(`.`)) {
+            return;
+        } else {
+
+
+            firstNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value; 
+            document.getElementById(`display-bottom`).innerHTML = firstNum;
+            
+            displayValue = firstNum;
+            console.log((firstNum));
+        }
     }
 
-
-    // 2nd value
+    // assign the 2nd value
     if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0) {
 
         if (event.target.value === `.` && secondNum.includes(`.`)) {
@@ -45,16 +68,35 @@ calcBody.addEventListener(`click`, (event) => {
             document.getElementById(`display-bottom`).innerHTML = displayValue;
             console.log((`2nd: ${secondNum}`));
         }
+    } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length !== 0) {
+        if ((event.keyCode === `110`) && secondNum.includes(`.`)) {
+            return;
+        } else {
+
+
+            secondNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value; 
+            document.getElementById(`display-bottom`).innerHTML = secondNum;
+            
+            displayValue = secondNum;
+            console.log((`2nd: ${secondNum}`));
+        }
     }
 
 
 
-
     // assign the operator
-    if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.`) {
+
+    if ((event.keyCode < 47 || event.keyCode > 58)) {
+        
+            operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
+
+            console.log(`operator: ${operatorValue}`);
+
+    } else if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.` && typeof(event.target.value) !== `undefined`) {
+   
 
         operatorValue.push(event.target.value);
-        console.log((operatorValue));
+        console.log(`operator: ${operatorValue}`);
 
     }
 
@@ -125,7 +167,7 @@ calcBody.addEventListener(`click`, (event) => {
 
     }
 
-});
+};
 
 
 
@@ -195,7 +237,9 @@ function operate(firstNumber, secondNumber, operator) {
 
 }
 
-
+calcBody.addEventListener(`click`, performCalculation);
+window.focus();
+window.addEventListener(`keydown`, performCalculation);
 
 
 
