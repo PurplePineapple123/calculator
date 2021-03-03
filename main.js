@@ -17,24 +17,25 @@ const calcBody = document.getElementById(`calculator-body`);
 
 
 let performCalculation = function (event) {
-    const isButton = event.target.nodeName === `BUTTON`;
 
-    console.log(event.target.nodeName);
+    //console.log(event.target.nodeName);
 
-
-    // if (!isButton) {
-    //     return;
-    // }
 
     if(event.target.nodeName === `DIV`){
         return;
     }
+
+    console.log(`event key: ${event.key}`);
     
     console.log(`target value: ${event.target.value}`);
 
     console.log(`keycode: ${event.keyCode}`);
 
     if ((event.target.value === `/` || event.target.value === `+` || event.target.value === `*` || event.target.value === `-` || event.target.value === `^`) && firstNum === ``) {
+        return;
+    }
+
+    if ((event.keyCode === 111 || event.keyCode === 107 || event.keyCode === 106 || event.keyCode === 109 || event.key === `^`) && firstNum === ``) {
         return;
     }
 
@@ -51,7 +52,7 @@ let performCalculation = function (event) {
 
             console.log((`first (click): ${firstNum}`));
         }
-    } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length === 0) {
+    } else if ((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) && operatorValue.length === 0) {
         if ((event.keyCode === `110`) && firstNum.includes(`.`)) {
             return;
         } else {
@@ -77,7 +78,7 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = displayValue;
             console.log((`2nd (click): ${secondNum}`));
         }
-    } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length !== 0) {
+    } else if ((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) && operatorValue.length !== 0) {
         if ((event.keyCode === `110`) && secondNum.includes(`.`)) {
             return;
         } else {
@@ -95,9 +96,12 @@ let performCalculation = function (event) {
 
     // assign the operator
 
-    if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 187) {
+    if ((event.keyCode < 47 || event.keyCode > 58 || event.key === `^`) && event.keyCode !== 187) {
+        if (event.key === `^`){
 
-        operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
+            operatorValue.push(document.getElementById(`exponent`).value);
+
+        } else operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
 
         console.log(`operator (key): ${operatorValue}`);
 
