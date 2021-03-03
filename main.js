@@ -16,20 +16,23 @@ const calcBody = document.getElementById(`calculator-body`);
 
 
 
-let performCalculation = function (event) {    
+let performCalculation = function (event) {
     const isButton = event.target.nodeName === `BUTTON`;
+
+    console.log(event.target.nodeName);
+
 
     // if (!isButton) {
     //     return;
     // }
 
-    // if (typeof(event.target.value) === `undefined`){
-    //     return;
-    // }
-   
+    if(event.target.nodeName === `DIV`){
+        return;
+    }
+    
     console.log(`target value: ${event.target.value}`);
 
-    console.log(event.keyCode);
+    console.log(`keycode: ${event.keyCode}`);
 
     if ((event.target.value === `/` || event.target.value === `+` || event.target.value === `*` || event.target.value === `-` || event.target.value === `^`) && firstNum === ``) {
         return;
@@ -37,7 +40,7 @@ let performCalculation = function (event) {
 
 
     // assign the first value 
-    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0 && typeof(event.keyCode) === `undefined`) {
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0 && typeof (event.keyCode) === `undefined`) {
         if ((event.target.value === `.`) && firstNum.includes(`.`)) {
             return;
         } else {
@@ -54,16 +57,16 @@ let performCalculation = function (event) {
         } else {
 
 
-            firstNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value; 
+            firstNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value;
             document.getElementById(`display-bottom`).innerHTML = firstNum;
-            
+
             displayValue = firstNum;
             console.log((`first (key): ${firstNum}`));
         }
     }
 
     // assign the 2nd value
-    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0 && typeof(event.keyCode) === `undefined`) {
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0 && typeof (event.keyCode) === `undefined`) {
 
         if (event.target.value === `.` && secondNum.includes(`.`)) {
             return;
@@ -80,9 +83,9 @@ let performCalculation = function (event) {
         } else {
 
 
-            secondNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value; 
+            secondNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value;
             document.getElementById(`display-bottom`).innerHTML = secondNum;
-            
+
             displayValue = secondNum;
             console.log((`2nd (key): ${secondNum}`));
         }
@@ -93,13 +96,13 @@ let performCalculation = function (event) {
     // assign the operator
 
     if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 187) {
-        
-            operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
 
-            console.log(`operator (key): ${operatorValue}`);
+        operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
 
-    } else if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.` && typeof(event.keyCode) === `undefined`) {
-   
+        console.log(`operator (key): ${operatorValue}`);
+
+    } else if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.` && typeof (event.keyCode) === `undefined`) {
+
 
         operatorValue.push(event.target.value);
         console.log(`operator (click): ${operatorValue}`);
@@ -161,8 +164,8 @@ let performCalculation = function (event) {
     //check keypress first
     if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58)) {
 
-        if (event.keyCode === 187) {
-            
+        if (event.keyCode === 187 || event.keyCode === 13) {
+
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
             secondNum = ``;
@@ -175,14 +178,14 @@ let performCalculation = function (event) {
 
         }
 
-    //mouse click
-    } else if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-` 
-                && event.target.value !== `.` && typeof(event.keyCode) === `undefined`) {
+        //mouse click
+    } else if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-`
+        && event.target.value !== `.` && typeof (event.keyCode) === `undefined`) {
 
 
         if (event.target.value === `=`) {
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
-        
+
 
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
             secondNum = ``;
@@ -204,20 +207,20 @@ let performCalculation = function (event) {
 
 function add(addFirst, addSecond) {
     let total = addFirst + addSecond;
-   return Math.round((total + Number.EPSILON) * 1000) / 1000;
-     
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
+
 }
 
 
 function subtract(subtractFirst, subtractSecond) {
     let total = subtractFirst - subtractSecond;
-    return Math.round((total + Number.EPSILON)  * 1000) / 1000;
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
 
 }
 
 function multiply(multiplyFirst, multiplySecond) {
     let total = multiplyFirst * multiplySecond;
-    return Math.round((total + Number.EPSILON)  * 1000) / 1000;
+    return Math.round((total + Number.EPSILON) * 1000) / 1000;
 
 }
 
@@ -241,7 +244,7 @@ function percent(percentFirst, percentSecond) {
 
 
 function operate(firstNumber, secondNumber, operator) {
-    
+
     if (operator === `+`) {
 
         return add(firstNumber, secondNumber);
