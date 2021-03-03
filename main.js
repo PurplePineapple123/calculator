@@ -17,13 +17,19 @@ const calcBody = document.getElementById(`calculator-body`);
 
 
 let performCalculation = function (event) {    
-    // const isButton = event.target.nodeName === `BUTTON`;
+    const isButton = event.target.nodeName === `BUTTON`;
+
     // if (!isButton) {
     //     return;
     // }
 
+    // if (typeof(event.target.value) === `undefined`){
+    //     return;
+    // }
    
-    console.log(event.target.value);
+    console.log(`target value: ${event.target.value}`);
+
+    console.log(event.keyCode);
 
     if ((event.target.value === `/` || event.target.value === `+` || event.target.value === `*` || event.target.value === `-` || event.target.value === `^`) && firstNum === ``) {
         return;
@@ -31,7 +37,7 @@ let performCalculation = function (event) {
 
 
     // assign the first value 
-    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0) {
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length === 0 && typeof(event.keyCode) === `undefined`) {
         if ((event.target.value === `.`) && firstNum.includes(`.`)) {
             return;
         } else {
@@ -40,7 +46,7 @@ let performCalculation = function (event) {
             displayValue = firstNum;
             document.getElementById(`display-bottom`).innerHTML = displayValue;
 
-            console.log((firstNum));
+            console.log((`first (click): ${firstNum}`));
         }
     } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length === 0) {
         if ((event.keyCode === `110`) && firstNum.includes(`.`)) {
@@ -52,12 +58,12 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = firstNum;
             
             displayValue = firstNum;
-            console.log((firstNum));
+            console.log((`first (key): ${firstNum}`));
         }
     }
 
     // assign the 2nd value
-    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0) {
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0 && typeof(event.keyCode) === `undefined`) {
 
         if (event.target.value === `.` && secondNum.includes(`.`)) {
             return;
@@ -66,7 +72,7 @@ let performCalculation = function (event) {
 
             displayValue = secondNum;
             document.getElementById(`display-bottom`).innerHTML = displayValue;
-            console.log((`2nd: ${secondNum}`));
+            console.log((`2nd (click): ${secondNum}`));
         }
     } else if ((event.keyCode > 47 && event.keyCode < 58) && operatorValue.length !== 0) {
         if ((event.keyCode === `110`) && secondNum.includes(`.`)) {
@@ -78,7 +84,7 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = secondNum;
             
             displayValue = secondNum;
-            console.log((`2nd: ${secondNum}`));
+            console.log((`2nd (key): ${secondNum}`));
         }
     }
 
@@ -86,17 +92,17 @@ let performCalculation = function (event) {
 
     // assign the operator
 
-    if ((event.keyCode < 47 || event.keyCode > 58)) {
+    if ((event.keyCode < 47 || event.keyCode > 58) && event.keyCode !== 187) {
         
             operatorValue.push(document.querySelector(`button[data-key="${event.keyCode}"]`).value);
 
-            console.log(`operator: ${operatorValue}`);
+            console.log(`operator (key): ${operatorValue}`);
 
-    } else if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.` && typeof(event.target.value) !== `undefined`) {
+    } else if (!numValues.test(event.target.value) && (event.target.value !== `=`) && event.target.value !== `+/-` && event.target.value !== `.` && typeof(event.keyCode) === `undefined`) {
    
 
         operatorValue.push(event.target.value);
-        console.log(`operator: ${operatorValue}`);
+        console.log(`operator (click): ${operatorValue}`);
 
     }
 
@@ -148,7 +154,31 @@ let performCalculation = function (event) {
 
 
 
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-` && event.target.value !== `.`) {
+
+
+
+
+    //check keypress first
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58)) {
+
+        if (event.keyCode === 187) {
+            
+            document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
+            firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
+            secondNum = ``;
+
+        } else {
+
+            document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]);
+            firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]).toString();
+            secondNum = ``;
+
+        }
+
+    //mouse click
+    } else if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-` 
+                && event.target.value !== `.` && typeof(event.keyCode) === `undefined`) {
+
 
         if (event.target.value === `=`) {
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
@@ -166,6 +196,7 @@ let performCalculation = function (event) {
         }
 
     }
+
 
 };
 
