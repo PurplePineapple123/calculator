@@ -52,8 +52,8 @@ let performCalculation = function (event) {
 
             console.log((`first (click): ${firstNum}`));
         }
-    } else if ((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) && operatorValue.length === 0) {
-        if ((event.keyCode === `110`) && firstNum.includes(`.`)) {
+    } else if (((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) || event.key === `.` ) && operatorValue.length === 0) {
+        if ((event.keyCode === 110) && firstNum.includes(`.`)) {
             return;
         } else {
 
@@ -79,7 +79,7 @@ let performCalculation = function (event) {
             console.log((`2nd (click): ${secondNum}`));
         }
     } else if ((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) && operatorValue.length !== 0) {
-        if ((event.keyCode === `110`) && secondNum.includes(`.`)) {
+        if ((event.keyCode === 110) && secondNum.includes(`.`)) {
             return;
         } else {
 
@@ -96,7 +96,7 @@ let performCalculation = function (event) {
 
     // assign the operator
 
-    if ((event.keyCode < 47 || event.keyCode > 58 || event.key === `^`) && event.keyCode !== 187) {
+    if ((event.keyCode < 47 || event.keyCode > 58 || event.key === `^`) && event.keyCode !== 187 && event.key !== `.`) {
         if (event.key === `^`){
 
             operatorValue.push(document.getElementById(`exponent`).value);
