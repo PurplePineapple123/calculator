@@ -59,9 +59,8 @@ let performCalculation = function (event) {
         } else {
 
             firstNum += (event.target.value);
-            displayValue = firstNum;
+            
             document.getElementById(`display-bottom`).innerHTML = firstNum;
-            document.getElementById(`display-top`).innerHTML = displayValue;
 
             console.log((`first (click): ${firstNum}`));
         }
@@ -87,10 +86,9 @@ let performCalculation = function (event) {
             return;
         } else {
             secondNum += event.target.value;
-            displayValue += event.target.value;
+        
 
             document.getElementById(`display-bottom`).innerHTML = secondNum;
-            document.getElementById(`display-top`).innerHTML = displayValue;
 
             console.log((`2nd (click): ${secondNum}`));
         }
@@ -119,9 +117,8 @@ let performCalculation = function (event) {
 
         operatorValue.push(event.target.value);
 
-        displayValue += ` ${event.target.value} `;
+        displayValue = ` ${firstNum} ${event.target.value} `;
         document.getElementById(`display-top`).innerHTML = displayValue;
-        
         console.log(`operator (click): ${operatorValue}`);
 
     }
@@ -133,17 +130,20 @@ let performCalculation = function (event) {
             
             document.getElementById(`back`).blur();
 
-        } else if (secondNum === ``) {
-            let newString = firstNum.slice(0, -1);
-            firstNum = newString;
-            console.log(`firstnum: ${firstNum}`);
-            document.getElementById(`display-bottom`).innerHTML = firstNum;
-        } else {
+
+        } else if (firstNum !== `` && operatorValue.length !== 0) {
+            secondNum = firstNum;
             let newString = secondNum.slice(0, -1);
             secondNum = newString;
             console.log(`secondnum: ${secondNum}`);
 
             document.getElementById(`display-bottom`).innerHTML = secondNum;
+
+        } else if (secondNum === ``) {
+            let newString = firstNum.slice(0, -1);
+            firstNum = newString;
+            console.log(`firstnum: ${firstNum}`);
+            document.getElementById(`display-bottom`).innerHTML = firstNum
 
         }
     }
@@ -214,6 +214,8 @@ let performCalculation = function (event) {
 
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
 
+            displayValue += ` ${secondNum} `;
+            document.getElementById(`display-top`).innerHTML = displayValue;
             
             
             secondNum = ``;
