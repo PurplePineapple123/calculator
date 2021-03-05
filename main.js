@@ -1,4 +1,3 @@
-
 let displayValue = ``;
 let firstNum = ``;
 let secondNum = ``;
@@ -182,9 +181,9 @@ let performCalculation = function (event) {
 
 
     //check keypress first
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58) && event.key !== `Backspace` && event.key !== `.`) {
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58) && event.key !== `Backspace` && event.key !== `.` && event.key !== 'Shift') {
 
-        if (event.keyCode === 187 || event.keyCode === 13) {
+        if (event.key === `=` || event.keyCode === 13) {
 
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
@@ -294,8 +293,3 @@ function operate(firstNumber, secondNumber, operator) {
 calcBody.addEventListener(`click`, performCalculation);
 window.focus();
 window.addEventListener(`keydown`, performCalculation);
-
-
-
-
-
