@@ -88,7 +88,7 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = displayValue;
             console.log((`2nd (click): ${secondNum}`));
         }
-    } else if (((event.key >= `0` && event.key <= `9` && event.key !== `^`) || event.key === `.` ) && operatorValue.length !== 0 ){
+    } else if (((event.key >= `0` && event.key <= `9`) || event.key === `.` ) && operatorValue.length !== 0 ){
         if ((event.key === `.`) && secondNum.includes(`.`)) {
             return;
         } else {
@@ -181,7 +181,8 @@ let performCalculation = function (event) {
 
 
     //check keypress first
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.key < `0` || event.key > `9`) && event.key !== `Backspace` && event.key !== `.` && event.key !== 'Shift') {
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.key < `0` || event.key > `9`) && event.key !== `Backspace` && event.key !== `.` 
+        && event.key !== 'Shift' && event.key !== ``) {
 
         if (event.key === `=` || event.key === `Enter`) {
 
