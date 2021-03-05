@@ -62,13 +62,13 @@ let performCalculation = function (event) {
 
             console.log((`first (click): ${firstNum}`));
         }
-    } else if (((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) || event.key === `.` ) && operatorValue.length === 0) {
+    } else if (((event.key >= `0` && event.key <= `9` && event.key !== `^`) || event.key === `.` ) && operatorValue.length === 0) {
         if ((event.key === `.`) && firstNum.includes(`.`)) {
             return;
         } else {
 
 
-            firstNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value;
+            firstNum += document.querySelector(`button[value="${event.key}"]`).value;
             document.getElementById(`display-bottom`).innerHTML = firstNum;
 
             displayValue = firstNum;
@@ -88,19 +88,19 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = displayValue;
             console.log((`2nd (click): ${secondNum}`));
         }
-    } else if (((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) || event.key === `.` ) && operatorValue.length !== 0 ){
+    } else if (((event.key >= `0` && event.key <= `9` && event.key !== `^`) || event.key === `.` ) && operatorValue.length !== 0 ){
         if ((event.key === `.`) && secondNum.includes(`.`)) {
             return;
         } else {
 
-            secondNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value;
+            secondNum += document.querySelector(`button[value="${event.key}"]`).value;
+            ;
             document.getElementById(`display-bottom`).innerHTML = secondNum;
 
             displayValue = secondNum;
             console.log((`2nd (key): ${secondNum}`));
         }
     }
-
 
 
     // assign the operator
@@ -181,9 +181,9 @@ let performCalculation = function (event) {
 
 
     //check keypress first
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58) && event.key !== `Backspace` && event.key !== `.` && event.key !== 'Shift') {
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.key < `0` || event.key > `9`) && event.key !== `Backspace` && event.key !== `.` && event.key !== 'Shift') {
 
-        if (event.key === `=` || event.keyCode === 13) {
+        if (event.key === `=` || event.key === `Enter`) {
 
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
