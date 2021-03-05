@@ -174,6 +174,8 @@ let performCalculation = function (event) {
     // clear all 
     if (event.target.value === `c` || event.key === `c`) {
         document.getElementById(`display-bottom`).innerHTML = ``;
+        document.getElementById(`display-top`).innerHTML = ``;
+
         displayValue = ``;
         firstNum = ``;
         secondNum = ``;
