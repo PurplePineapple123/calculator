@@ -45,7 +45,7 @@ let performCalculation = function (event) {
         return;
     }
 
-    if ((event.keyCode === 111 || event.keyCode === 107 || event.keyCode === 106 || event.keyCode === 109 || event.key === `^` || event.key === `enter` 
+    if ((event.key === `/` || event.key === `+` || event.key === `*` || event.key === `-` || event.key === `^` || event.key === `enter` 
         || event.key === `=`) && firstNum === ``) {
         return;
     }
@@ -64,7 +64,7 @@ let performCalculation = function (event) {
             console.log((`first (click): ${firstNum}`));
         }
     } else if (((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) || event.key === `.` ) && operatorValue.length === 0) {
-        if ((event.keyCode === 110) && firstNum.includes(`.`)) {
+        if ((event.key === `.`) && firstNum.includes(`.`)) {
             return;
         } else {
 
@@ -78,7 +78,7 @@ let performCalculation = function (event) {
     }
 
     // assign the 2nd value
-    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0 && typeof (event.keyCode) === `undefined`) {
+    if ((numValues.test(event.target.value) || event.target.value === `.`) && operatorValue.length !== 0 && typeof (event.keyCode) === `undefined` ) {
 
         if (event.target.value === `.` && secondNum.includes(`.`)) {
             return;
@@ -89,11 +89,10 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = displayValue;
             console.log((`2nd (click): ${secondNum}`));
         }
-    } else if ((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) && operatorValue.length !== 0) {
-        if ((event.keyCode === 110) && secondNum.includes(`.`)) {
+    } else if (((event.keyCode > 47 && event.keyCode < 58 && event.key !== `^`) || event.key === `.` ) && operatorValue.length !== 0 ){
+        if ((event.key === `.`) && secondNum.includes(`.`)) {
             return;
         } else {
-
 
             secondNum += document.querySelector(`button[data-key="${event.keyCode}"]`).value;
             document.getElementById(`display-bottom`).innerHTML = secondNum;
@@ -183,7 +182,7 @@ let performCalculation = function (event) {
 
 
     //check keypress first
-    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58) && event.key !== `Backspace`) {
+    if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (event.keyCode < 47 || event.keyCode > 58) && event.key !== `Backspace` && event.key !== `.`) {
 
         if (event.keyCode === 187 || event.keyCode === 13) {
 
