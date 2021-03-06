@@ -109,6 +109,10 @@ let performCalculation = function (event) {
 
         operatorValue.push(document.querySelector(`button[value="${event.key}"]`).value);
 
+        displayValue = ` ${firstNum} ${event.key} `;
+        document.getElementById(`display-top`).innerHTML = displayValue;
+
+
         console.log(`operator (key): ${operatorValue}`);
 
     } else if (event.target.value === `+` || event.target.value === `-` || event.target.value === `*` || event.target.value === `/` 
@@ -221,6 +225,10 @@ let performCalculation = function (event) {
 
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
+
+            displayValue += ` ${secondNum} `;
+            document.getElementById(`display-top`).innerHTML = displayValue;
+
             secondNum = ``;
             operatorValue = [];
 
@@ -228,6 +236,10 @@ let performCalculation = function (event) {
 
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 2]).toString();
+            
+            displayValue = `${firstNum} ${operatorValue[operatorValue.length - 1]} `;
+            document.getElementById(`display-top`).innerHTML = displayValue;
+            
             secondNum = ``;
 
         }
