@@ -222,6 +222,7 @@ let performCalculation = function (event) {
             document.getElementById(`display-bottom`).innerHTML = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]);
             firstNum = operate(parseFloat(firstNum), parseFloat(secondNum), operatorValue[operatorValue.length - 1]).toString();
             secondNum = ``;
+            operatorValue = [];
 
         } else {
 
@@ -246,6 +247,8 @@ let performCalculation = function (event) {
             
             
             secondNum = ``;
+            operatorValue = [];
+
 
 
         } else {
