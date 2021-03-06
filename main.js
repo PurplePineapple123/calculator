@@ -19,7 +19,6 @@ let performCalculation = function (event) {
 
     //console.log(event.target.nodeName);
 
-
     if (event.key) {
         event.target.value = ``;
     }
@@ -69,8 +68,8 @@ let performCalculation = function (event) {
             return;
         } else {
 
-
-            firstNum += document.querySelector(`button[value="${event.key}"]`).value;
+            console.log(event.key);
+            firstNum += (event.key);
             displayValue = firstNum;
 
             document.getElementById(`display-bottom`).innerHTML = firstNum;
@@ -97,7 +96,7 @@ let performCalculation = function (event) {
             return;
         } else {
 
-            secondNum += document.querySelector(`button[value="${event.key}"]`).value;
+            secondNum += event.key;
             document.getElementById(`display-bottom`).innerHTML = secondNum;
             console.log((`2nd (key): ${secondNum}`));
         }
@@ -131,8 +130,16 @@ let performCalculation = function (event) {
             document.getElementById(`back`).blur();
 
 
-        } else if (firstNum !== `` && operatorValue.length !== 0) {
+        } else if (firstNum !== `` && operatorValue.length !== 0 && secondNum === ``) {
             secondNum = firstNum;
+            let newString = secondNum.slice(0, -1);
+            secondNum = newString;
+            console.log(`secondnum: ${secondNum}`);
+
+            document.getElementById(`display-bottom`).innerHTML = secondNum;
+
+        } else if (secondNum !== ``) {
+
             let newString = secondNum.slice(0, -1);
             secondNum = newString;
             console.log(`secondnum: ${secondNum}`);
@@ -150,13 +157,31 @@ let performCalculation = function (event) {
 
     //clear current entry
     if (event.target.value === `ce` || event.key === `Delete`) {
-        if (secondNum === ``) {
+      
+        if (secondNum === ``){
             firstNum = ``;
+            operatorValue = [];
+            displayValue = ``;
+            document.getElementById(`display-top`).innerHTML = displayValue;
             document.getElementById(`display-bottom`).innerHTML = firstNum;
-        } else {
+
+            console.log(firstNum.value);
+            console.log(secondNum);
+
+
+        } else if (firstNum !== `` && operatorValue !== []) {
             secondNum = ``;
             document.getElementById(`display-bottom`).innerHTML = secondNum;
+
         }
+
+
+        //document.getElementById(`display-bottom`).innerHTML = secondNum;
+
+
+
+
+
     }
 
     // make a value negative or positive
@@ -208,7 +233,7 @@ let performCalculation = function (event) {
 
         //mouse click
     } else if (firstNum !== `` && secondNum !== `` && operatorValue.length !== 0 && (!numValues.test(event.target.value)) && event.target.value !== `+/-`
-        && event.target.value !== `.` && typeof (event.keyCode) === `undefined` && event.target.value !== `back`) {
+        && event.target.value !== `.` && typeof (event.keyCode) === `undefined` && event.target.value !== `back` && event.target.value !== `ce`) {
 
 
         if (event.target.value === `=`) {
