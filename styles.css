@@ -55,6 +55,7 @@ button {
     justify-content: center;
     align-items: center;
     outline: none;
+    font-size: 17px;
 
     background: #ECECEC;
 	border-radius: 15px;
@@ -70,16 +71,19 @@ button {
 }
 
 button:hover {
-    box-shadow: 0px 2px 1px white inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 1px rgb(211, 211, 211) inset, 0px -2px 20px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+
+    color: orange;
+    -webkit-transition:color 0.5s;
+
+
+    /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 button:active {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) inset, 0px -2px 20px white, 0px 1px 5px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.1);
 	background:-webkit-linear-gradient(top, #d1d1d1 0%,#ECECEC 100%);
 }
-
-
-
 
 
 body {
@@ -90,39 +94,45 @@ body {
     text-align: center;    
     height: 100vh;
     position: relative;
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(206, 206, 206);
 }
 
 #calculator {
     background-color:#ECECEC;
     width: 400px;
     height: auto;
+
+    border-radius: 15px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23), 0 0 5px #aaa inset;
+
 }
 
 #display {
     height: 150px;
     margin: 20px;
-    background-color: rgb(81, 171, 199);
+    background-color: rgb(181, 190, 192);
     display: flex;
     flex-direction: column;
+    box-shadow: inset 2px 2px 4px 5px rgba(0,0,0,0.3);
+    border-radius: 15px;
+
 }
 
 #display-top {
-    background-color: red;
     font-size: 25px;
     flex: 1;
-    padding-left: 15px;
+    padding-left: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
     flex-wrap: nowrap;
     overflow: hidden;
     white-space: nowrap;
+    color: rgb(95, 95, 95);
 
 }
 
 #display-bottom {
-    background-color: green;
     font-size: 50px;
     flex: 2;
     display: inline-flex;
