@@ -211,3 +211,14 @@ body {
     grid-area: equal;
     height: auto;
 }
+
+#color-switch {
+    width: 100px;
+    height: 100px;
+    margin-top: 1%;
+    background-color: red;
+}
+
+
+
+

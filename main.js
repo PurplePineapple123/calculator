@@ -17,8 +17,6 @@ const calcBody = document.getElementById(`calculator-body`);
 
 let performCalculation = function (event) {
 
-    //console.log(event.target.nodeName);
-
     if (event.key) {
         event.target.value = ``;
     }
