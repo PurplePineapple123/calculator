@@ -351,3 +351,5 @@ function operate(firstNumber, secondNumber, operator) {
 calcBody.addEventListener(`click`, performCalculation);
 window.focus();
 window.addEventListener(`keydown`, performCalculation);
+
+
