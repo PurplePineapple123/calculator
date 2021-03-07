@@ -192,8 +192,12 @@ body {
 
 .operator-body {
     grid-area: operator;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+
+
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    /* flex-direction: column; */
     grid-gap: 15px 15px;
 }
 
